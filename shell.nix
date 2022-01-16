@@ -2,6 +2,7 @@
 
 pkgs.mkShell {
   nativeBuildInputs = with pkgs; [ 
+    flac
     (python3.withPackages (ps: with ps; with python3Packages; [
       jupyter
       ipython
