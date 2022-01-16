@@ -20,6 +20,7 @@ from dataclasses import dataclass
 from typing import Union,Any
 from datetime import timedelta
 import logging
+logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("text2chapters")
 
 @dataclass
