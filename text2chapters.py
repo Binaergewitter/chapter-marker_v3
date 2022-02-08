@@ -107,9 +107,9 @@ m.add("Toter der Woche",["toter","toten der woche"],False)
 m.add("Untoter der Woche",["untoten der woche"],False)
 m.add("News",["news"],True) # this one is tricky
 m.add("Themen",[],False) # no news last time
-m.add("Mimimi der Woche",["mimimi"],False)
-m.add("Lesefoo",["lesen.to"],False)
-m.add("Picks",["picks"],True)
+m.add("Mimimi der Woche",["mimimi","mini-me"],False)
+m.add("Lesefoo",["lesen.to","lasershow"],False)
+m.add("Picks",["picks","pigs"],True)
 m.add("Ende",[ "passt auf euch auf" ,"habt spaß", "bis zum nächsten mal", "ciao ciao" ],True)
 
 def guess_sendungsnummer():
