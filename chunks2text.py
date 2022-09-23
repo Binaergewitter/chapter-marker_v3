@@ -3,6 +3,7 @@
 """
 
 import time
+import datetime
 import urllib
 from pydub import AudioSegment, silence
 import speech_recognition as sr
@@ -21,6 +22,10 @@ def guess_sendungsnummer():
     ret = urllib.request.urlopen(url)
     return ret.geturl().split("/")[-1]
 
+def humanize_time(secs):
+    mins, secs = divmod(secs, 60)
+    hours, mins = divmod(mins, 60)
+    return '%02d:%02d:%02d' % (hours, mins, secs)
 
 def main():
     args = docopt(__doc__)
@@ -42,6 +47,7 @@ def main():
             "length": length,
             "begin": total_length,
             "begin_speech": total_length + first_speech,
+            "human_time": str(datetime.timedelta(seconds=(total_length + first_speech))),
             "speech_offset": first_speech,
         }
         total_length += length

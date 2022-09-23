@@ -8,6 +8,9 @@ pkgs.mkShell {
       ipython
       pydub
       docopt
+      #pytorch
+      omegaconf
+      torchaudio-bin
       (callPackage ./speech_recognition.nix {})
 
     ]))

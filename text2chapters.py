@@ -103,10 +103,10 @@ class ChapterMarks:
 m = ChapterMarks()
 m.add("Halli Hallo und Herzlich Willkommen",[ "halli hallo", "herzlich willkommen" ],True, True)
 m.add("Blast from the Past",[ "blast", "platz von der past" ],False)
-m.add("Toter der Woche",["toter","toten der woche"],False)
+m.add("Toter der Woche",["toter","tote der woche","toten der woche"],False)
 m.add("Untoter der Woche",["untoten der woche"],False)
 m.add("News",["news"],True) # this one is tricky
-m.add("Themen",["thema","themen"],False) # no news last time
+m.add("Themen",["themen"],False) # no news last time
 m.add("Mimimi der Woche",["mimimi","mini-me","menü der woche"],False)
 m.add("Lesefoo",["lesen.to","lasershow","lese vor"],False)
 m.add("Picks",["picks","pigs","dick picks"],True)
