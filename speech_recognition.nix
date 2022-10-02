@@ -29,7 +29,6 @@ buildPythonPackage rec {
   doCheck = false;
   propagatedBuildInputs = [
     pyaudio
-    #(callPackage ./pocketsphinx.nix {})
     google-cloud-speech
   ];
 }
