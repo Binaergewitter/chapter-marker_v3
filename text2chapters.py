@@ -89,7 +89,7 @@ class ChapterMarks:
             if chap.time is None:
                 log.warning(f"skipping chapter {k}, no plausible chunk found")
                 continue
-            t = str(timedelta(milliseconds=chap.time) + timedelta(milliseconds=self.offset))
+            t = str(timedelta(seconds=chap.time) + timedelta(seconds=self.offset))
             try:
                 front,back = t.split(".",1)
                 back = back[0:3]
