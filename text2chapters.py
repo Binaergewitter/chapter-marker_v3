@@ -51,8 +51,8 @@ class ChapterMarks:
             for o in v.options:
                 for recognizer,text in chunkdata['text'].items():
                     if o in text.lower():
+                        log.info(f'Found possible match for chapter {chap} in chunk {chunk} as it matched text "{o}" in {recognizer}')
                         if not chunk in v.seen:
-                            log.info(f'Found possible match for chapter {chap} in chunk {chunk} as it matched text "{o}"')
                             v.seen.append(chunk)
     def override_chapters(self,override: dict[str,Any]):
         """ override the chapters found """
@@ -105,8 +105,9 @@ m.add("Halli Hallo und Herzlich Willkommen",[ "halli hallo", "herzlich willkomme
 m.add("Blast from the Past",[ "blast", "platz von der past" ],False)
 m.add("Toter der Woche",["toter","tote der woche","toten der woche"],False)
 m.add("Untoter der Woche",["untoten der woche"],False)
+m.add("AI der Woche",["ei der woche","ai der woche"," e der woche"],False)
 m.add("News",["news"],True) # this one is tricky
-m.add("Themen",["themen"],False) # no news last time
+m.add("Themen",["thema","themen"],False) # no news last time
 m.add("Mimimi der Woche",["mimimi","mini-me","menü der woche"],False)
 m.add("Lesefoo",["lesen.to","lasershow","lese vor"],False)
 m.add("Picks",["picks","pigs","dick picks"],True)
