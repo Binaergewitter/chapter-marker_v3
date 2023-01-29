@@ -12,6 +12,7 @@ import os
 from docopt import docopt
 import json
 import logging
+from urllib.error import HTTPError
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("chunks2text")
@@ -75,7 +76,7 @@ def main():
             "human_time": str(datetime.timedelta(seconds=(total_length + first_speech))),
             "speech_offset": first_speech,
         }
-        print(ret[f])
+        #print(ret[f])
         total_length += length
         with sr.AudioFile(str(file_path)) as source:
             # somewhat worse output with this:
@@ -88,6 +89,15 @@ def main():
                 text = r.recognize_google(audio_listened,language='de-DE')
             except sr.UnknownValueError as e:
                 log.error(f"Error: {e}")
+                text = ""
+            except HTTPError as e:
+                if e.code == 400:
+                    log.error("HTTP Error 400, continuing")
+                    text = ""
+                else:
+                    raise
+            except sr.RequestError as e:
+                log.error("Speech Recognition error 400")
                 text = ""
             else:
                 text = f"{text.capitalize()}. "
