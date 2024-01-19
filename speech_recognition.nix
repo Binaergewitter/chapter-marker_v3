@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, fetchFromGitHub
 , pyaudio
 , google-cloud-speech
 , flac
@@ -16,9 +17,15 @@ let
 in
 buildPythonPackage rec {
   pname = "speech_recognition";
-  version = "3.8.1";
+  version = "3.10.0";
 
-  src = ./speech_recognition;
+  src = fetchFromGitHub {
+    owner = "Uberi";
+    repo = "speech_recognition";
+    hash = "sha256-w+BXfzsEtikPLnHDCI48aXTVLRxfDg43IAOzuAShngY="
+    ;
+    rev = version;
+  };
   buildInputs = [
     flac
   ];
