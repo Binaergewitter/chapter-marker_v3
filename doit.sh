@@ -34,7 +34,7 @@ echo "3. performing stt with chunks"
 python ./chunks2text.py "${show}_chunks" | tee "${show}.json"
 
 echo "4. transforming text to chapter-file"
-python ./text2chapters.py "${show}.json" | tee "$local_chapters" # --offset=15000 
+python ./text2chapters.py "${show}.json" | tee "$local_chapters"
 
 echo "5. uploading chapters file to remote"
 rclone copy "./$local_chapters" "${front}/${show}/"

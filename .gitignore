@@ -1,4 +1,5 @@
-BGT*.txt
+.direnv
 *.flac
 *_chunks/
 *.json
+*.txt

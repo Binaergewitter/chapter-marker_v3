@@ -1,28 +1,23 @@
 {
-  description = "Application packaged using poetry2nix";
-
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.poetry2nix = {
-    url = "github:nix-community/poetry2nix";
-    inputs.nixpkgs.follows = "nixpkgs";
+  inputs = {
+    nixpkgs.url = "nixpkgs/nixos-22.11";
   };
-
-  outputs = { self, nixpkgs, flake-utils, poetry2nix }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        # see https://github.com/nix-community/poetry2nix/tree/master#api for more functions and examples.
-        inherit (poetry2nix.legacyPackages.${system}) mkPoetryApplication;
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
-        packages = {
-          myapp = mkPoetryApplication { projectDir = self; };
-          default = self.packages.${system}.myapp;
-        };
-
-        devShells.default = pkgs.mkShell {
-          packages = [ poetry2nix.packages.${system}.poetry ];
+  outputs = { self, nixpkgs }:
+    let
+      supportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+      forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {
+        pkgs = import nixpkgs {
+          inherit system; 
+          config.allowUnfree = true;
         };
       });
+    in
+    {
+      packages = forEachSupportedSystem ({pkgs }: {
+        default = pkgs.darkice;
+      });
+      devShells = forEachSupportedSystem ({ pkgs }: {
+        default = (import ./shell.nix) { inherit pkgs;};
+      });
+    };
 }
