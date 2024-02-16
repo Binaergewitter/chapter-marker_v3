@@ -102,15 +102,15 @@ class ChapterMarks:
 
 m = ChapterMarks()
 m.add("Halli Hallo und Herzlich Willkommen",[ "halli hallo", "herzlich willkommen" ],True, True)
-m.add("Blast from the Past",[ "blast", "platz von der past" ],False)
+m.add("Blast from the Past",[ "blast", "platz von der past","blas from the past","blass vom zupast" ],False)
 m.add("Toter der Woche",["toter","tote der woche","toten der woche","tote woche"],False)
 m.add("Untoter der Woche",["untoten der woche","untote woche"],False)
 m.add("AI der Woche",["ei der woche","ai der woche"," e der woche"],False)
 m.add("News",["news"],True) # this one is tricky
-m.add("Themen",["thema","themen"],False) # no news last time
+m.add("Themen",["thema der woche","themen der woche"],False) # no news last time
 m.add("Mimimi der Woche",["mimimi","mini-me","menü der woche"],False)
-m.add("Lesefoo",["lesen.to","lasershow","lese vor"],False)
-m.add("Picks",["picks","pigs","dick picks","pics pics pics","pickx","pix"],True)
+m.add("Lesefoo",["lesen.to","lasershow","lese vor","lesafu","lasefu"],False)
+m.add("Picks",["picks","pigs","dick picks","pics pics pics","pickx","pix","pix, pix, pix"],True)
 m.add("Ende",[ "immer eine frohe zeit","passt auf euch auf" ,"habt spaß", "bis zum nächsten mal", "ciao ciao" ],True)
 
 def guess_sendungsnummer():
