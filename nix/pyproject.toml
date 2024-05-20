@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "chapter-marker-v3"
+version = "3.0.0"
+description = "Chapter Marker (Version 3)"
+authors = ["makefu <github@syntax-fehler.de>"]
+license = "WTFPL"
+readme = "README.md"
+packages = [{include = "chapter_marker_v3"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+silero = "^0.4.1"
+openai-whisper = "^20230314"
+speechrecognition = "^3.10.0"
+docopt = "^0.6.2"
+pydub = "^0.25.1"
+torchaudio = "^2.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
