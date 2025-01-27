@@ -102,7 +102,7 @@ class ChapterMarks:
 
 m = ChapterMarks()
 m.add("Halli Hallo und Herzlich Willkommen",[ "halli hallo", "herzlich willkommen" ],True, True)
-m.add("Blast from the Past",[ "blast", "platz von der past","blas from the past","blass vom zupast" ],False)
+m.add("Blast from the Past",[ "blast", "platz von der past","blas from the past","blas von der past","blass vom zupast" ],False)
 m.add("Toter der Woche",["toter","tote der woche","toten der woche","tote woche"],False)
 m.add("Untoter der Woche",["untoten der woche","untote woche"],False)
 m.add("AI der Woche",["ei der woche","ai der woche"," e der woche"],False)

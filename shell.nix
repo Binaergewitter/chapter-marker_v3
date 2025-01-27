@@ -10,6 +10,7 @@ pkgs.mkShell {
     python3.pkgs.docopt
     python3.pkgs.pip
     python3.pkgs.pydub
+    python3.pkgs.whisper
     pkgs.stdenv.cc.cc.lib
     (python3.pkgs.callPackage ./speech_recognition.nix {})
     (python3.pkgs.callPackage ./stft.nix {})

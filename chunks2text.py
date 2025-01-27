@@ -23,9 +23,9 @@ from silero import silero_stt, silero_tts
 import torch
 
 device = torch.device('cpu')  # gpu also works, but our models are fast enough for CPU
-model_sst, decoder, utils = silero_stt(language='de', device=device)
+model_sst, decoder, utils = silero_stt(language='de',version='v4',device=device,jit_model="jit_large")
 (read_batch, _ , _, prepare_model_input) = utils  # see function signature for details
-model_tts , _ = silero_tts( language='de',  speaker='v3_de',device=device)
+# model_tts , _ = silero_tts( language='de',  speaker='v3_de',device=device)
 
 def audioToText(wavfile):
     input = prepare_model_input(read_batch([wavfile]),device=device)
@@ -37,7 +37,7 @@ def audioToText(wavfile):
     return text
 
 import whisper
-whisper_model = whisper.load_model("base")
+whisper_model = whisper.load_model("medium")
 
 def whisperToText(wavfile):
     return whisper_model.transcribe(wavfile,language="de",fp16=False)["text"]
@@ -76,7 +76,6 @@ def main():
             "human_time": str(datetime.timedelta(seconds=(total_length + first_speech))),
             "speech_offset": first_speech,
         }
-        #print(ret[f])
         total_length += length
         with sr.AudioFile(str(file_path)) as source:
             # somewhat worse output with this:
