@@ -20,12 +20,12 @@ local_fname="${show}_$fname"
 local_chapters="${show}.chapters.txt" 
 echo "!! Performing analysis for show $show with file $fname"
 
-echo "1. copying $nextcloud_path to local dir"
-until rclone copy -v "$nextcloud_path" ".";do
-  echo "cannot find $nextcloud_path, retrying"
-  sleep 10
-done
-mv -v "$fname" "$local_fname"
+#echo "1. copying $nextcloud_path to local dir"
+#until rclone copy -v "$nextcloud_path" ".";do
+#  echo "cannot find $nextcloud_path, retrying"
+#  sleep 10
+#done
+#mv -v "$fname" "$local_fname"
 
 echo "2. splitting $fname"
 python ./split-voice.py "$local_fname" "$show"
