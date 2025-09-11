@@ -19,6 +19,7 @@
 	    python3.pkgs.pydub
 	    python3.pkgs.openai-whisper
 	    python3.pkgs.speechrecognition
+	    python3.pkgs.pysilero-vad
 	    pkgs.stdenv.cc.cc.lib
         ];
       };
