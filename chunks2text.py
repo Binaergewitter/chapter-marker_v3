@@ -22,7 +22,7 @@ log = logging.getLogger("chunks2text")
 from silero import silero_stt, silero_tts
 import torch
 
-device = torch.device('cpu')  # gpu also works, but our models are fast enough for CPU
+device = torch.device('cuda')  # gpu also works, but our models are fast enough for CPU
 model_sst, decoder, utils = silero_stt(language='de',version='v4',device=device,jit_model="jit_large")
 (read_batch, _ , _, prepare_model_input) = utils  # see function signature for details
 # model_tts , _ = silero_tts( language='de',  speaker='v3_de',device=device)
@@ -37,7 +37,9 @@ def audioToText(wavfile):
     return text
 
 import whisper
-whisper_model = whisper.load_model("medium")
+#whisper_model = whisper.load_model("medium")
+#whisper_model = whisper.load_model("base")
+whisper_model = whisper.load_model("small")
 
 def whisperToText(wavfile):
     return whisper_model.transcribe(wavfile,language="de",fp16=False)["text"]
@@ -81,36 +83,36 @@ def main():
             # somewhat worse output with this:
             #r.adjust_for_ambient_noise(source)
             
-            logging.info(f"Handling file {f} with google translate")
-            audio_listened = r.record(source)
-            start_google = time.time()
-            try:
-                text = r.recognize_google(audio_listened,language='de-DE')
-            except sr.UnknownValueError as e:
-                log.error(f"Error: {e}")
-                text = ""
-            except HTTPError as e:
-                if e.code == 400:
-                    log.error("HTTP Error 400, continuing")
-                    text = ""
-                else:
-                    raise
-            except sr.RequestError as e:
-                log.error("Speech Recognition error 400")
-                text = ""
-            else:
-                text = f"{text.capitalize()}. "
-            ret[f]['text']['google'] = text
-            log.debug(ret[f])
-            end_google = time.time()
+            #logging.info(f"Handling file {f} with google translate")
+            #audio_listened = r.record(source)
+            #start_google = time.time()
+            #try:
+            #    text = r.recognize_google(audio_listened,language='de-DE')
+            #except sr.UnknownValueError as e:
+            #    log.error(f"Error: {e}")
+            #    text = ""
+            #except HTTPError as e:
+            #    if e.code == 400:
+            #        log.error("HTTP Error 400, continuing")
+            #        text = ""
+            #    else:
+            #        raise
+            #except sr.RequestError as e:
+            #    log.error("Speech Recognition error 400")
+            #    text = ""
+            #else:
+            #    text = f"{text.capitalize()}. "
+            #ret[f]['text']['google'] = text
+            #log.debug(ret[f])
+            #end_google = time.time()
 
-            start_silero = time.time()
-            logging.info(f"Handling file {file_path} with silero")
+            #start_silero = time.time()
+            #logging.info(f"Handling file {file_path} with silero")
 
-            text = audioToText(file_path)
-            text = f"{text.capitalize()}. "
-            ret[f]['text']['silero'] = text
-            end_silero = time.time()
+            #text = audioToText(file_path)
+            #text = f"{text.capitalize()}. "
+            #ret[f]['text']['silero'] = text
+            #end_silero = time.time()
 
             start_whisper = time.time()
             logging.info(f"Handling file {file_path} with whisper")
@@ -119,10 +121,10 @@ def main():
             ret[f]['text']['whisper'] = text
             end_whisper = time.time()
             
-            logging.info(f"google : {ret[f]['text']['google']}")
-            logging.info(f"google took {round(end_google - start_google)} seconds")
-            logging.info(f"silero : {ret[f]['text']['silero']}")
-            logging.info(f"silero took {round(end_silero - start_silero)} seconds")
+            #logging.info(f"google : {ret[f]['text']['google']}")
+            #logging.info(f"google took {round(end_google - start_google)} seconds")
+            #logging.info(f"silero : {ret[f]['text']['silero']}")
+            #logging.info(f"silero took {round(end_silero - start_silero)} seconds")
             logging.info(f"whisper: {ret[f]['text']['whisper']}")
             logging.info(f"whisper took {round(end_whisper - start_whisper)} seconds")
 

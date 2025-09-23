@@ -13,8 +13,15 @@
   outputs = { self, nixpkgs, flake-utils, poetry2nix }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        # see https://github.com/nix-community/poetry2nix/tree/master#api for more functions and examples.
-        pkgs = nixpkgs.legacyPackages.${system};
+        #pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          config.cudaSupport = true;
+          #config.cudaVersion = "12";
+        };
+        # Change according to the driver used: stable, beta
+        nvidiaPackage = pkgs.linuxPackages.nvidiaPackages.stable;
         inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication defaultPoetryOverrides;
       in
       {
@@ -49,8 +56,15 @@
         #     nix develop
         #
         # Use this shell for developing your app.
+# :${nvidiaPackage}/lib
+            #export EXTRA_LDFLAGS="-L/lib -L${nvidiaPackage}/lib"
+            #export EXTRA_CCFLAGS="-I/usr/include"
         devShells.default = pkgs.mkShell {
           inputsFrom = [ self.packages.${system}.myapp ];
+          shellHook = ''
+            export CUDA_PATH=${pkgs.cudatoolkit}
+            export LD_LIBRARY_PATH=${pkgs.cudaPackages.cuda_nvrtc}/lib
+          '';
         };
 
         # Shell for poetry.
@@ -59,7 +73,15 @@
         #
         # Use this shell for changes to pyproject.toml and poetry.lock.
         devShells.poetry = pkgs.mkShell {
-          packages = [ pkgs.poetry ];
+            packages = [ pkgs.poetry ];
+            # export LD_LIBRARY_PATH="${nvidiaPackage}/lib:$LD_LIBRARY_PATH"
+            # export EXTRA_LDFLAGS="-L/lib -L${nvidiaPackage}/lib"
+          shellHook = ''
+            export CUDA_PATH=${pkgs.cudatoolkit}
+            export LD_LIBRARY_PATH=${pkgs.cudaPackages.cuda_nvrtc}/lib:${nvidiaPackage}/lib
+            export EXTRA_LDFLAGS="-L/lib -L${nvidiaPackage}/lib"
+            export EXTRA_CCFLAGS="-I/usr/include"
+          '';
         };
       });
 }
