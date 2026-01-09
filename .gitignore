@@ -1,5 +1,8 @@
 .direnv
 *.flac
+*.mp3
 *_chunks/
 *.json
 *.txt
+result
+.env
