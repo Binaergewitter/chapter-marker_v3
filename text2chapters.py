@@ -123,7 +123,14 @@ def guess_sendungsnummer():
 
 def main():
     args = docopt(__doc__)
-    data = json.load(open(args['CHAPTERDATA'] or guess_sendungsnummer() + ".json"))
+    raw_data = json.load(open(args['CHAPTERDATA'] or guess_sendungsnummer() + ".json"))
+    
+    # Support both old format (chunks at top level) and new format (chunks under 'chunks' key)
+    if 'chunks' in raw_data and isinstance(raw_data['chunks'], dict):
+        data = raw_data['chunks']
+    else:
+        data = raw_data
+    
     override = {}
     for idx,k in enumerate(args['CHAPTER']):
         override[k] = f"chunk{int(args['CHUNKID'][idx]):04d}.wav"
