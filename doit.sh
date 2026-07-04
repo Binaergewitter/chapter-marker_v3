@@ -27,7 +27,7 @@ fi
 
 front=$(echo "$nextcloud_path" | cut -d/ -f1)
 show=$(echo "$nextcloud_path" | cut -d/ -f2)
-fname=$(echo "$nextcloud_path" | cut -d/ -f 3)
+fname=$(echo "$nextcloud_path" | rev| cut -d/ -f 1| rev)
 local_fname="${show}_$fname"
 local_chapters="${show}.chapters.txt"
 echo "!! Performing analysis for show $show with file $fname"
