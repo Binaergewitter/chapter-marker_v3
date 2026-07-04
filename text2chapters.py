@@ -105,11 +105,12 @@ m.add("Halli Hallo und Herzlich Willkommen",[ "halli hallo", "herzlich willkomme
 m.add("Blast from the Past",[ "blast", "platz von der past","blas from the past","blas von der past","blass vom zupast" ],False)
 m.add("Toter der Woche",["toter","tota","tota der woche","tote der woche","toten der woche","tote woche"],False)
 m.add("Untoter der Woche",["untota","untoten der woche","untote woche"],False)
+m.add("Dotcom der Woche",[ "dotcom der woche"],False)
 m.add("AI der Woche",["ei der woche","ai der woche"," e der woche"],False)
 m.add("News",["news"],True) # this one is tricky
 m.add("Themen",["thema der woche","themen der woche"],False) # no news last time
 m.add("3D-Druck der Woche",["3d druck","3d-druck","drei d druck"],False)
-m.add("Mimimi der Woche",["mimimi","mini-me","menü der woche"],False)
+m.add("Mimimi der Woche",["rumheulen","mimimi","mini-me","menü der woche"],False)
 m.add("Lesefoo",["lesen.to","lasershow","lese vor","lesafu","lasefu"],False)
 m.add("Picks",["picks","pigs","dick picks","pics pics pics","pickx","pix","pix, pix, pix"],True)
 m.add("Ende",[ "immer eine frohe zeit","passt auf euch auf" ,"habt spaß", "bis zum nächsten mal", "ciao ciao" ],True)
