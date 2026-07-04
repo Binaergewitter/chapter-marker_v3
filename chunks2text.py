@@ -19,7 +19,7 @@ log = logging.getLogger("chunks2text")
 
 # Mistral API configuration
 MISTRAL_API_URL = "https://api.mistral.ai/v1/audio/transcriptions"
-MISTRAL_MODEL_DEFAULT = "voxtral-mini-2507"
+MISTRAL_MODEL_DEFAULT = "voxtral-mini-2602"
 MISTRAL_APIKEY = os.environ.get("MISTRAL_APIKEY")
 
 if not MISTRAL_APIKEY:
@@ -48,7 +48,13 @@ import whisper
 #whisper_model = whisper.load_model("medium")
 #whisper_model = whisper.load_model("base")
 whisper_model_name = "small"
-whisper_model = whisper.load_model()
+whisper_model = whisper.load_model(whisper_model_name)
+
+whisper_device = str(next(whisper_model.parameters()).device)
+if whisper_device.startswith("cuda"):
+    print(f"whisper running on GPU ({whisper_device})")
+else:
+    print(f"whisper running on CPU ({whisper_device})")
 
 def whisperToText(wavfile):
     return whisper_model.transcribe(wavfile,language="de",fp16=False)["text"]
